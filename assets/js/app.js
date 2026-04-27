@@ -7,7 +7,6 @@ let prev = document.querySelector(".slider--container__prev");
 let next = document.querySelector(".slider--container__next");
 
 let dots = document.getElementsByClassName("slider_dot");
-console.log(dots);
 
 function removeActiveImages() {
   for (let i = 0; i < nbr_img; i++) {
@@ -36,23 +35,25 @@ nextSlide = function () {
   updateActiveDot();
 };
 
-next.addEventListener("click", function () {
-  nextSlide();
-});
+if (next && prev && nbr_img > 0 && dots.length >= nbr_img) {
+  next.addEventListener("click", function () {
+    nextSlide();
+  });
 
-prev.addEventListener("click", function () {
-  step--;
-  if (step < 0) {
-    step = nbr_img - 1;
-  }
-  removeActiveImages();
-  img_slider[step].classList.add("active");
-  updateActiveDot();
-});
+  prev.addEventListener("click", function () {
+    step--;
+    if (step < 0) {
+      step = nbr_img - 1;
+    }
+    removeActiveImages();
+    img_slider[step].classList.add("active");
+    updateActiveDot();
+  });
 
-setInterval(function () {
-  nextSlide();
-}, 5000);
+  setInterval(function () {
+    nextSlide();
+  }, 5000);
+}
 
 // Add scroll event listener to the window
 window.addEventListener("scroll", function () {
@@ -72,18 +73,24 @@ window.addEventListener("scroll", function () {
 });
 
 // Add click event listener to the back-to-top button
-document.getElementById("back-to-top").addEventListener("click", function () {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
+const backToTopButton = document.getElementById("back-to-top");
+
+if (backToTopButton) {
+  backToTopButton.addEventListener("click", function () {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   });
-});
+}
 
 let toggle = document.querySelector(".navbar--container__burger");
 let body = document.querySelector("body");
 
-toggle.addEventListener("click", function () {
-  body.classList.toggle("open");
-  document.querySelector(".navbar--container__menu").classList.toggle("open");
-});
+if (toggle) {
+  toggle.addEventListener("click", function () {
+    body.classList.toggle("open");
+    document.querySelector(".navbar--container__menu").classList.toggle("open");
+  });
+}
 
