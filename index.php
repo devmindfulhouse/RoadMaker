@@ -10,6 +10,10 @@ else if ($_GET['section'] == 'mentions_legales')
 {
     include_once('controller/mentions_legales.php');
 }
+else if ($_GET['section'] == 'politique_confidentialite')
+{
+    include_once('controller/politique_confidentialite.php');
+}
 else if ($_GET['section'] == 'tourism_offer')
 {
     include_once('controller/offers_controller/offer_tourism.php');

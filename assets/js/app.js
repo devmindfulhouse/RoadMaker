@@ -94,3 +94,76 @@ if (toggle) {
   });
 }
 
+function limitLinkedInFeedPosts() {
+  const feedHost = document.querySelector(".sk-ww-linkedin-page-post");
+  if (!feedHost) {
+    return false;
+  }
+
+  const feedGrid = feedHost.querySelector(".grid-linkedin-page-post");
+  const feedPosts = Array.from(
+    feedHost.querySelectorAll(".grid-item-linkedin-page-post")
+  );
+
+  if (!feedGrid || feedPosts.length === 0) {
+    return false;
+  }
+
+  feedPosts.slice(1).forEach(function (feedPost) {
+    const postWrapper = feedPost.closest("span") || feedPost;
+    postWrapper.remove();
+  });
+
+  const firstPost = feedPosts[0];
+  firstPost.style.position = "relative";
+  firstPost.style.left = "auto";
+  firstPost.style.top = "auto";
+  feedGrid.style.height = "auto";
+
+  const profileBlock = feedHost.querySelector(
+    ".linkedin-page-post-user-root-container"
+  );
+  if (profileBlock) {
+    profileBlock.remove();
+  }
+
+  const bottomButtons = feedHost.querySelector(
+    ".sk-linkedin-page-post-bottom-btn-container"
+  );
+  if (bottomButtons) {
+    bottomButtons.remove();
+  }
+
+  return true;
+}
+
+const linkedinFeed = document.querySelector(".sk-ww-linkedin-page-post");
+
+if (linkedinFeed) {
+  let isUpdatingLinkedinFeed = false;
+
+  const applyLinkedinFeedLimit = function () {
+    if (isUpdatingLinkedinFeed) {
+      return;
+    }
+
+    isUpdatingLinkedinFeed = true;
+    limitLinkedInFeedPosts();
+    isUpdatingLinkedinFeed = false;
+  };
+
+  const linkedinFeedObserver = new MutationObserver(function () {
+    applyLinkedinFeedLimit();
+  });
+
+  linkedinFeedObserver.observe(linkedinFeed, {
+    childList: true,
+    subtree: true,
+  });
+
+  applyLinkedinFeedLimit();
+  window.addEventListener("load", applyLinkedinFeedLimit);
+  window.setTimeout(applyLinkedinFeedLimit, 1000);
+  window.setTimeout(applyLinkedinFeedLimit, 2500);
+}
+
