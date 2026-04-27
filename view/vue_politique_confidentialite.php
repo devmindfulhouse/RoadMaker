@@ -63,7 +63,7 @@ include_once('view/vue_entete.php')
         <section class="mentions--container__identity__item">
             <h2>8. Contact</h2>
             <p>Pour toute question relative à cette politique de confidentialité, vous pouvez nous contacter à l’adresse suivante :</p>
-            <p><a href="mailto:info@mh-solutions.fr">info@mh-solutions.fr</a></p>
+            <p><a href="mailto:info@mh-solutions.net">info@mh-solutions.net</a></p>
         </section>
     </div>
 </div>
